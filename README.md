@@ -15,9 +15,7 @@ This project uses an Arduino Uno with a soil moisture sensor and a DHT11 tempera
 - Breadboard + jumper wires
 
 ## Circuit diagram
-
-*(insert your circuit diagram image here)*
-
+attached in the next file 
 **Connections:**
 - DHT11: VCC → 5V, GND → GND, DATA → A3
 - Soil moisture sensor: VCC → 5V, GND → GND, AOUT → A0
