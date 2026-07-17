@@ -1,43 +1,48 @@
-#include <DHT.h>
-// DHT11 Settings
-#define DHTPIN A3
-#define DHTTYPE DHT11
-DHT dht(DHTPIN, DHTTYPE);
-// Soil Moisture Settings
-const int sensorPin = A0;  // Soil moisture sensor pin
-const int ledPin = 7;      // LED pin
-// Variables
-int h;
-int t;
-int sensorValue = 0;
-void setup()
-{
-    Serial.begin(9600);
-    Serial.println("Temperature, Humidity and Soil Moisture Test");
-    dht.begin();
-    pinMode(ledPin, OUTPUT);
-}
-void loop()
-{
-    // Read DHT11
-    h = dht.readHumidity();
-    t = dht.readTemperature();
-    // Read Soil Moisture
-    sensorValue = analogRead(sensorPin);
-    // Print all values to Serial Monitor
-    Serial.print("Temp: ");
-    Serial.print(t);
-    Serial.print(" C  |  Humidity: ");
-    Serial.print(h);
-    Serial.print(" %  |  Soil Moisture: ");
-    Serial.println(sensorValue);
-    // Control LED based on soil moisture
-    if (sensorValue > 500) {
-        digitalWrite(ledPin, HIGH);  // Soil is dry, turn LED on
-        Serial.println("Status: Soil is DRY");
-    } else {
-        digitalWrite(ledPin, LOW);   // Soil is wet, turn LED off
-        Serial.println("Status: Soil is WET");
-    }
-    delay(1000);
-}
+# 🌱 Plant Health Monitor
+
+A simple Arduino-based system that tracks soil moisture, temperature, and humidity to help monitor plant health in real time.
+
+## Overview
+
+This project uses an Arduino Uno with a soil moisture sensor and a DHT11 temperature/humidity sensor to continuously monitor conditions around a plant. An LED gives a quick visual indicator of whether the soil is dry, and all readings are logged to the Serial Monitor.
+
+## Components used
+
+- Arduino Uno
+- DHT11 temperature & humidity sensor
+- Soil moisture sensor
+- LED + resistor
+- Breadboard + jumper wires
+
+## Circuit diagram
+
+*(insert your circuit diagram image here)*
+
+**Connections:**
+- DHT11: VCC → 5V, GND → GND, DATA → A3
+- Soil moisture sensor: VCC → 5V, GND → GND, AOUT → A0
+- LED: anode → resistor → pin 7, cathode → GND
+
+## How it works
+
+1. The DHT11 sensor reads ambient temperature and humidity.
+2. The soil moisture sensor reads an analog value indicating how dry or wet the soil is.
+3. If the soil moisture value exceeds a threshold (500), the LED turns on to indicate the soil is dry.
+4. All readings (temperature, humidity, soil moisture, and status) are printed to the Serial Monitor every second.
+
+## Setup / how to run
+
+1. Wire the components according to the circuit diagram above.
+2. Install the **DHT sensor library** in Arduino IDE (Sketch → Include Library → Manage Libraries → search "DHT sensor library" by Adafruit).
+3. Upload `plant_monitor.ino` to your Arduino Uno.
+4. Open the Serial Monitor (9600 baud) to view live readings.
+
+## Next steps
+
+- Add an LCD screen for standalone readouts without needing a computer/Serial Monitor
+- Add data logging (e.g. to an SD card or cloud service) for tracking trends over time
+- Add a buzzer or additional alert for critical dryness levels
+
+## Author
+
+Built by Pratistitha as a personal embedded systems project.
